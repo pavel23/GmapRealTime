@@ -1,7 +1,8 @@
 
 $(document).ready(function(){
 
-    var socket = io.connect('http://localhost'), $document = $(document), icon = {
+    var socket = io.connect('http://localhost'), $document = $(document), 
+    icon = {
         redIcon: 'images/icon_map_1.png',
         yellowIcon: 'images/icon_map_2.png'
     }, positions = {}, map = {};
@@ -54,15 +55,15 @@ $(document).ready(function(){
 
 
         for (var location in locations) {
-                                map.addMarker({
-                    lat: locations[location].latitude,
-                    lng: locations[location].longitude,
-                    icon: icon.yellowIcon
-                });
+            map.addMarker({
+                lat: locations[location].latitude,
+                lng: locations[location].longitude,
+                icon: icon.yellowIcon
+            });
 
         }
 
-       //console.log(locations);
+       console.log(locations);
     });
 
 });

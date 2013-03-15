@@ -6,15 +6,18 @@ var express = require('express'),
 
 var app = express();
 
-app.set('port', process.env.PORT || 3000);
-app.engine('.html', cons.jade);
-app.set('view engine', 'html');
-app.set('views', __dirname + '/views');
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.use( express.bodyParser() );
-app.use( express.cookieParser() );
-app.use(app.router);
+app.configure(function(){
+	app.set('port', process.env.PORT || 3000);
+	app.engine('.html', cons.jade);
+	app.set('view engine', 'html');
+	app.set('views', __dirname + '/views');
+	app.use(express.static(path.join(__dirname, 'public')));
+
+	app.use( express.bodyParser() );
+	app.use( express.cookieParser() );
+	app.use(app.router);
+});
 
 app.get('/', routes.index);
 
@@ -25,7 +28,6 @@ app.configure('development', function(){
 app.configure('production', function(){
   app.use(express.errorHandler()); 
 });
-
 
 var server = http.createServer(app).listen(app.get('port'), function(){
   console.log("Cargando GoogleMaps en tiempo real en el puerto " + app.get('port'));
