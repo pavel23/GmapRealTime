@@ -23,13 +23,19 @@ var server = http.createServer(app).listen(app.get('port'), function(){
 });
 
 var io = require('socket.io').listen(server);
+var obj_locations = {};
 
-
-io.sockets.on('connection', function (socket) {
-	socket.emit('news', { hello: 'world' });
-	socket.on('my other event', function (data) {
-		console.log(data);
-		console.log(socket.id);
+io.sockets.on('connection', function (socket) { 
+	var user_id = socket.id;
+	socket.on('add:locations', function(location){
+		location.user_id = user_id;
+		obj_locations[user_id] =  location;
+		socket.emit('user:locations', user_id);
+		socket.broadcast.emit('update:locations', obj_locations);
 	});
 
+	socket.on('disconnect', function(){
+		delete obj_locations[user_id];
+		socket.broadcast.emit('update:locations', obj_locations);
+	});
 });
