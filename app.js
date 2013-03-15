@@ -18,6 +18,15 @@ app.use(app.router);
 
 app.get('/', routes.index);
 
+app.configure('development', function(){
+  app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
+});
+
+app.configure('production', function(){
+  app.use(express.errorHandler()); 
+});
+
+
 var server = http.createServer(app).listen(app.get('port'), function(){
   console.log("Cargando GoogleMaps en tiempo real en el puerto " + app.get('port'));
 });
