@@ -53,7 +53,6 @@ $(document).ready(function(){
             delete locations[$document.data('user_id')];
         }
 
-
         for (var location in locations) {
             map.addMarker({
                 lat: locations[location].latitude,
