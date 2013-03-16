@@ -1,4 +1,17 @@
-#map{
+#wrapper_map{
+	margin: 20px auto;
+	color: #999999;
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 390px;
+    text-align: center;
 	width:900px;
-	height:500px;
+}
+
+#map{
+	background: #fff;
+	padding: 15px;
+	box-shadow: 0 0 20px #999;
+	border-radius: 2px;
+	height: 500px;
 }

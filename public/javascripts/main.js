@@ -32,10 +32,10 @@ $(document).ready(function(){
                     };
 
                     socket.emit('add:locations', positions);
-                });
+                })
 
             }, function(error){
-                console.log(error);
+                alert(error);
             }, { enableHighAccuracy: true } );
         }else{
             alert("Geolocalización no es compatible con este navegador");
@@ -44,11 +44,13 @@ $(document).ready(function(){
     });
 
     socket.on('user:locations', function (userId) {
-        $document.data('user_id',userId);
+        if(!$document.data('user_id')){
+            $document.data('user_id',userId);
+        }
+        
     });
 
     socket.on('update:locations', function (locations) {
-        console.log(map);
         if($document.data('user_id') in locations){
             delete locations[$document.data('user_id')];
         }
@@ -62,8 +64,6 @@ $(document).ready(function(){
             });
 
         }
-
-       console.log(locations);
     });
 
 });
